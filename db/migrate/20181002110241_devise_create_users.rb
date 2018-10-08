@@ -23,6 +23,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :users, :username, default: ""
       t.text :users, :address, default: ""
       t.text :users, :chatwork_token, default: ""
+      t.string :users, :room_id, default: ""
       t.string :users, :provider
       t.string :users, :uid
       t.string :users, :token

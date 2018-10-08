@@ -21,7 +21,7 @@
 <template id="home.html">
   <ons-page>
     <p class="intro">
-      This is a kitchen sink example that shows off the components of Onsen UI.<br><br>
+      UQ-Walletユーザー管理<br><br>
     </p>
 
     <% unless current_user %>
@@ -41,6 +41,10 @@
       <div class="title">Xem-address</div>
       <div class="content"><%= current_user.address%></div>
       <%= link_to 'ログアウト', sign_out_path %>
+    </ons-card>
+    <ons-card>
+      <div class="title">chatwork接続テスト</div>
+      <%= link_to 'テスト', chatwork_me_api_v1_users_path(:id => 3, :me => 'hello test'), :target => "_brank" %>
     </ons-card>
     <% end %>
 

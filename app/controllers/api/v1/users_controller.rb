@@ -11,7 +11,7 @@ class Api::V1::UsersController < ApplicationController
   	user = User.find(params[:id])
   	me = params[:me]
   	logger.debug params[:id]
-  	uri = URI.parse("https://api.chatwork.com/v2/rooms/23117959/messages")
+  	uri = URI.parse("https://api.chatwork.com/v2/rooms/#{user.room_id}/messages")
 	request = Net::HTTP::Post.new(uri)
 	request["X-Chatworktoken"] = user.chatwork_token
 	request.set_form_data(

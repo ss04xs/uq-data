@@ -3,6 +3,8 @@
 
     <%= f.hidden_field :username, :id=> "username" %><br />
     <%= f.hidden_field :address, :id=> "address" %><br />
+    <%= f.hidden_field :chatwork_token, :id=> "chatwork_token" %><br />
+    <%= f.hidden_field :room_id, :id=> "room_id" %><br />
     <%= f.hidden_field :email, autofocus: true, autocomplete: "email", :id=> "email" %>
     <%= f.submit "Update", :id=> "update", :style=> "display: none;" %>
 <% end %>
@@ -30,7 +32,7 @@
 <template id="forms.html">
   <ons-page id="forms-page">
     <ons-list>
-      <ons-list-header>Text input</ons-list-header>
+      <ons-list-header>ユーザー名</ons-list-header>
       <ons-list-item class="input-items">
         <div class="left">
           <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
@@ -39,30 +41,58 @@
           <ons-input id="name-input" float maxlength="20" placeholder="<%= current_user.username%>"></ons-input>
         </label>
       </ons-list-item>
+      <ons-list-header>XEMアドレス</ons-list-header>
       <ons-list-item class="input-items">
         <div class="left">
-          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+          <ons-icon icon="md-home" class="list-item__icon"></ons-icon>
         </div>
         <label class="center">
           <ons-input id="address-input" float maxlength="100" placeholder="<%= current_user.address%>"></ons-input>
         </label>
       </ons-list-item>
+      <ons-list-header>Chatwork_Token</ons-list-header>
+      <ons-list-item class="input-items">
+        <div class="left">
+          <ons-icon icon="fa-cog" class="list-item__icon"></ons-icon>
+        </div>
+        <label class="center">
+          <ons-input id="chatwork_token-input" float maxlength="100" placeholder="<%= current_user.chatwork_token%>"></ons-input>
+        </label>
+      </ons-list-item>
+      <ons-list-header>Chatwork_Room_Id</ons-list-header>
+      <ons-list-item class="input-items">
+        <div class="left">
+          <ons-icon icon="fa-cog" class="list-item__icon"></ons-icon>
+        </div>
+        <label class="center">
+          <ons-input id="room_id-input" float maxlength="100" placeholder="<%= current_user.room_id%>"></ons-input>
+        </label>
+      </ons-list-item>
+      <ons-list-header>データを保存する</ons-list-header>
       <ons-list-item>
         <div class="right right-label">
-          <ons-button id="save" onclick="update();" class="button-margin right-icon">保存</ons-button>
+          <ons-button id="save-btn" onclick="update();" class="button-margin right-icon">保存</ons-button>
         </div>
       </ons-list-item>
     </ons-list>
     <script type="text/javascript">
       ons.getScriptPage().onInit = function () {
-        var addressInput = document.getElementById('address-input');
-        var updateInputs = function (event) {
-          addressInput.value = event.target.value;
-          console.log(event)
-          console.log("serche"+addressInput.value)
-          document.getElementById( "address" ).value = addressInput.value;
-        }
-        addressInput.addEventListener('input', updateInputs);
+        $('#name-input').children().keyup(function() {
+          var nameinput = $(this).val();
+          document.getElementById( "username" ).value = nameinput;
+        });
+        $('#address-input').children().keyup(function() {
+          var addressinput = $(this).val();
+          document.getElementById( "address" ).value = addressinput;
+        });
+        $('#chatwork_token-input').children().keyup(function() {
+          var tokeninput = $(this).val();
+          document.getElementById( "chatwork_token" ).value = tokeninput;
+        });
+        $('#room_id-input').children().keyup(function() {
+          var roomidinput = $(this).val();
+          document.getElementById( "room_id" ).value = roomidinput;
+        });
       }
     </script>
   </ons-page>
@@ -109,5 +139,10 @@
 
   .right-label {
     color: #666;
+  }
+  #save-btn {
+    font-size: 12px;
+    padding: 4px 10px;
+    line-height: 24px;
   }
 </style>
