@@ -19,6 +19,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.datetime :last_sign_in_ip
       t.integer :sign_in_count
 
+      t.string :users, :name
       t.string :users, :username
       t.text :users, :adress
       t.text :users, :chatwork_token
