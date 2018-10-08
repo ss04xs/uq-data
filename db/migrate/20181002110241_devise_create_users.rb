@@ -17,7 +17,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.datetime :last_sign_in_at
       t.datetime :current_sign_in_ip
       t.datetime :last_sign_in_ip
-      t.int :sign_in_count
+      t.integer :sign_in_count
 
       t.string :users, :username
       t.text :users, :adress
