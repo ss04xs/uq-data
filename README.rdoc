@@ -1,0 +1,10 @@
+Devise + Omniauth 参照
+https://qiita.com/bino98/items/596b5cffeca7c104bd90
+
+
+OAuth クライアント
+クライアント ID
+734098842077-ue21n5p90l354r23ql75hmmd5qtae69r.apps.googleusercontent.com
+
+クライアント シークレット
+7qPPS-ZSj6quIaCDqnN-in3o
