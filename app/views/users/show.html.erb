@@ -1,0 +1,125 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+    <%= f.hidden_field :username, :id=> "username" %><br />
+    <%= f.hidden_field :address, :id=> "address" %><br />
+    <%= f.hidden_field :email, autofocus: true, autocomplete: "email", :id=> "email" %>
+    <%= f.submit "Update", :id=> "update" %>
+<% end %>
+
+<h3>Cancel my accounta</h3>
+
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+
+<ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
+  <ons-page>
+    <ons-splitter id="appSplitter">
+      <ons-splitter-content page="tabbar.html"></ons-splitter-content>
+    </ons-splitter>
+  </ons-page>
+</ons-navigator>
+
+<template id="tabbar.html">
+  <ons-page id="tabbar-page">
+    <ons-toolbar>
+      <div class="center">アカウント編集</div>
+    </ons-toolbar>
+    <ons-tabbar swipeable id="appTabbar" position="auto">
+      <ons-tab onclick="to_home();"></ons-tab>
+      <ons-tab label="Forms" icon="ion-edit" page="forms.html" active></ons-tab>
+    </ons-tabbar>
+  </ons-page>
+</template>
+
+<template id="forms.html">
+  <ons-page id="forms-page">
+    <ons-list>
+      <ons-list-header>Text input</ons-list-header>
+      <ons-list-item class="input-items">
+        <div class="left">
+          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+        </div>
+        <label class="center">
+          <ons-input id="name-input" float maxlength="20" placeholder="<%= current_user.username%>"></ons-input>
+        </label>
+      </ons-list-item>
+      <ons-list-item class="input-items">
+        <div class="left">
+          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+        </div>
+        <label class="center">
+          <ons-input id="address-input" float maxlength="100" placeholder="<%= current_user.address%>"></ons-input>
+        </label>
+      </ons-list-item>
+      <ons-list-item>
+         <span id="save" onclick="update();">保存</span>
+        <div class="right right-label">
+          <%= link_to "Back", :back %>
+          <ons-icon icon="fa-hand-spock-o" size="lg" class="right-icon"></ons-icon>
+        </div>
+      </ons-list-item>
+    </ons-list>
+    <script type="text/javascript">
+      ons.getScriptPage().onInit = function () {
+        var nameInput = document.getElementById('name-input');
+        var addressInput = document.getElementById('address-input');
+        var updateInputs = function (event) {
+          nameInput.value = event.target.value;
+          addressInput.value = event.target.value;
+          console.log(event)
+          console.log("name"+nameInput.value)
+          console.log("serche"+addressInput.value)
+          document.getElementById( "username" ).value = nameInput.value;
+          document.getElementById( "address" ).value = addressInput.value;
+        }
+        nameInput.addEventListener('input', updateInputs);
+        addressInput.addEventListener('input', updateInputs);
+      }
+    </script>
+  </ons-page>
+</template>
+
+<template id="transition.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>Animations</ons-back-button>
+      </div>
+      <div class="center"></div>
+    </ons-toolbar>
+    <p style="text-align: center">
+      Use the VOnsBackButton
+    </p>
+    <script>
+      ons.getScriptPage().onInit = function () {
+        this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+      }
+    </script>
+  </ons-page>
+</template>
+
+<script type="text/javascript">
+  function update(){
+    document.getElementById("update").click();
+  };
+  function to_home(){
+    document.location.href = "<%= root_path %>";
+  };
+</script>
+
+<style>
+  ons-input {
+    width: 100%;
+  }
+  ons-splitter-side[animation=overlay] {
+    border-left: 1px solid #bbb;
+  }
+  .right-icon {
+    margin-left: 10px;
+  }
+
+  .right-label {
+    color: #666;
+  }
+</style>

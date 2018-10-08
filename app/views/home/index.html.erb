@@ -1,0 +1,110 @@
+<ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
+  <ons-page>
+    <ons-splitter id="appSplitter">
+      <ons-splitter-content page="tabbar.html"></ons-splitter-content>
+    </ons-splitter>
+  </ons-page>
+</ons-navigator>
+
+<template id="tabbar.html">
+  <ons-page id="tabbar-page">
+    <ons-toolbar>
+      <div class="center">Home</div>
+    </ons-toolbar>
+    <ons-tabbar swipeable id="appTabbar" position="auto">
+      <ons-tab label="Home" icon="ion-home" page="home.html" active></ons-tab>
+      <ons-tab label="Forms" icon="ion-edit" onclick="to_edit();"></ons-tab>
+    </ons-tabbar>
+  </ons-page>
+</template>
+
+<template id="home.html">
+  <ons-page>
+    <p class="intro">
+      This is a kitchen sink example that shows off the components of Onsen UI.<br><br>
+    </p>
+
+    <% unless current_user %>
+	<h1>Hello, Rails!</h1>
+	<%= link_to 'Googleでログインする！！', user_google_omniauth_authorize_path %>
+
+	<% else %>
+    <ons-card>
+      <div class="title">アカウント名</div>
+      <div class="content"><%= current_user.username%></div>
+    </ons-card>
+    <ons-card>
+      <div class="title">E-mail</div>
+      <div class="content"><%= current_user.email%></div>
+    </ons-card>
+    <ons-card>
+      <div class="title">Xem-address</div>
+      <div class="content"><%= current_user.address%></div>
+      <%= link_to 'ログアウト', sign_out_path %>
+    </ons-card>
+    <% end %>
+
+    <style>
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+
+<template id="transition.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>Animations</ons-back-button>
+      </div>
+      <div class="center"></div>
+    </ons-toolbar>
+    <p style="text-align: center">
+      Use the VOnsBackButton
+    </p>
+    <script>
+      ons.getScriptPage().onInit = function () {
+        this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+      }
+    </script>
+  </ons-page>
+</template>
+
+<script type="text/javascript">
+  function update(){
+    document.getElementById("update").click();
+  };
+  function to_edit(){
+    document.location.href = "<%= edit_user_registration_path %>";
+  };
+</script>
+
+<style>
+  ons-input {
+    width: 100%;
+  }
+  ons-splitter-side[animation=overlay] {
+    border-left: 1px solid #bbb;
+  }
+  .right-icon {
+    margin-left: 10px;
+  }
+
+  .right-label {
+    color: #666;
+  }
+</style>
