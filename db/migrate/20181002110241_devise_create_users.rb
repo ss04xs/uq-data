@@ -20,9 +20,9 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer :sign_in_count
 
       t.string :users, :name
-      t.string :users, :username
-      t.text :users, :adress
-      t.text :users, :chatwork_token
+      t.string :users, :username, default: ""
+      t.text :users, :adress, default: ""
+      t.text :users, :chatwork_token, default: ""
       t.string :users, :provider
       t.string :users, :uid
       t.string :users, :token
