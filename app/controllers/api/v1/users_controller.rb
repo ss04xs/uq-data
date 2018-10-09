@@ -8,6 +8,8 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def chatwork_me
+  	require 'net/https'
+	require 'json'
   	user = User.find(params[:id])
   	me = params[:me]
   	logger.debug params[:id]
