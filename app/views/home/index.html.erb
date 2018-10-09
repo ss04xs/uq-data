@@ -13,7 +13,9 @@
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="auto">
       <ons-tab label="Home" icon="ion-home" page="home.html" active></ons-tab>
-      <ons-tab label="Forms" icon="ion-edit" onclick="to_edit();"></ons-tab>
+      <% if current_user %>
+        <ons-tab label="Forms" icon="ion-edit" onclick="to_edit();"></ons-tab>
+      <% end %>
     </ons-tabbar>
   </ons-page>
 </template>
@@ -25,27 +27,39 @@
     </p>
 
     <% unless current_user %>
-	<h1>Hello, Rails!</h1>
-	<%= link_to 'Googleでログインする！！', user_google_omniauth_authorize_path %>
-
-	<% else %>
-    <ons-card>
-      <div class="title">アカウント名</div>
-      <div class="content"><%= current_user.username%></div>
-    </ons-card>
-    <ons-card>
-      <div class="title">E-mail</div>
-      <div class="content"><%= current_user.email%></div>
-    </ons-card>
-    <ons-card>
-      <div class="title">Xem-address</div>
-      <div class="content"><%= current_user.address%></div>
-      <%= link_to 'ログアウト', sign_out_path %>
-    </ons-card>
-    <ons-card>
-      <div class="title">chatwork接続テスト</div>
-      <%= link_to 'テスト', chatwork_me_api_v1_users_path(:id => 3, :me => 'hello test'), :target => "_brank" %>
-    </ons-card>
+      <ons-card style="text-align: center;">
+        <%= link_to user_google_omniauth_authorize_path do %>
+        <ons-button modifier="cta" class="button-margin button button--cta">Googleアカウントでログイン</ons-button>
+        <% end %>
+      </ons-card>
+	  <% else %>
+      <ons-card>
+        <div class="title">アカウント名</div>
+        <div class="content"><%= current_user.username%></div>
+      </ons-card>
+      <ons-card>
+        <div class="title">E-mail</div>
+        <div class="content"><%= current_user.email%></div>
+      </ons-card>
+      <ons-card>
+        <div class="title">Xem-Address</div>
+        <div class="content"><%= current_user.address%></div>
+      </ons-card>
+      <ons-card>
+        <div class="title">ChatWork接続テスト</div>
+        <%= link_to 'テスト', chatwork_me_api_v1_users_path(:id => current_user.id, :me => 'hello test'), :target => "_brank" %>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': 'PullHook'})">
+        <div class="title">UserList</div>
+        <div class="content">サイトに登録されているユーザーリスト</div>
+      </ons-card>
+      <div style="    width: 100%;
+    margin-top: 30px;
+    text-align: center;">
+        <%= link_to sign_out_path do %>
+        <ons-button modifier="cta" class="button-margin button button--cta">ログアウト</ons-button>
+        <% end %>
+      </div>
     <% end %>
 
     <style>
@@ -68,25 +82,33 @@
   </ons-page>
 </template>
 
-
-<template id="transition.html">
+<template id="pullHook.html">
   <ons-page>
     <ons-toolbar>
       <div class="left">
-        <ons-back-button>Animations</ons-back-button>
+        <ons-back-button>Home</ons-back-button>
       </div>
-      <div class="center"></div>
+      <div class="center">UserList</div>
     </ons-toolbar>
-    <p style="text-align: center">
-      Use the VOnsBackButton
-    </p>
-    <script>
-      ons.getScriptPage().onInit = function () {
-        this.querySelector('ons-toolbar div.center').textContent = this.data.title;
-      }
-    </script>
+
+    <ons-pull-hook id="pull-hook" threshold-height="120px">
+      <ons-icon id="pull-hook-icon" size="22px" class="pull-hook-content" icon="fa-arrow-down"></ons-icon>
+    </ons-pull-hook>
+
+    <ons-list id="kitten-list">
+      <ons-list-header>UserList</ons-list-header>
+      <% @users.each do |u| %>
+        <ons-list-item>
+          <div class="left">
+            <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+          </div>
+          <div class="center"><%= u.email %></div>
+        </ons-list-item>
+      <% end %>
+    </ons-list>
   </ons-page>
 </template>
+
 
 <script type="text/javascript">
   function update(){
