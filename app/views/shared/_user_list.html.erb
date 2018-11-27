@@ -1,0 +1,26 @@
+<template id="pullHook.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>Home</ons-back-button>
+      </div>
+      <div class="center">UserList</div>
+    </ons-toolbar>
+
+    <ons-pull-hook id="pull-hook" threshold-height="120px">
+      <ons-icon id="pull-hook-icon" size="22px" class="pull-hook-content" icon="fa-arrow-down"></ons-icon>
+    </ons-pull-hook>
+
+    <ons-list id="kitten-list">
+      <ons-list-header>UserList</ons-list-header>
+      <% @users.each do |u| %>
+        <ons-list-item>
+          <div class="left">
+            <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+          </div>
+          <div class="center"><%= u.email %></div>
+        </ons-list-item>
+      <% end %>
+    </ons-list>
+  </ons-page>
+</template>

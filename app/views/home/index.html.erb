@@ -33,17 +33,9 @@
         <% end %>
       </ons-card>
 	  <% else %>
-      <ons-card>
-        <div class="title">アカウント名</div>
-        <div class="content"><%= current_user.username%></div>
-      </ons-card>
-      <ons-card>
-        <div class="title">E-mail</div>
-        <div class="content"><%= current_user.email%></div>
-      </ons-card>
-      <ons-card>
-        <div class="title">Xem-Address</div>
-        <div class="content"><%= current_user.address%></div>
+      <ons-card onclick="fn.pushPage({'id': 'account.html', 'title': 'Account'})">
+        <div class="title">アカウント</div>
+        <div class="content">アカウント情報を確認できます。</div>
       </ons-card>
       <ons-card>
         <div class="title">ChatWork接続テスト</div>
@@ -51,11 +43,13 @@
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': 'PullHook'})">
         <div class="title">UserList</div>
-        <div class="content">サイトに登録されているユーザーリスト</div>
+        <div class="content">サイトに登録されているユーザー一覧</div>
       </ons-card>
-      <div style="    width: 100%;
-    margin-top: 30px;
-    text-align: center;">
+      <ons-card onclick="fn.pushPage({'id': 'fetch_transaction.html', 'title': 'Transactions'})">
+        <div class="title">トランザクション履歴</div>
+        <div class="content">トランザクションリスト</div>
+      </ons-card>
+      <div style="width: 100%;margin-top: 30px;text-align: center;">
         <%= link_to sign_out_path do %>
         <ons-button modifier="cta" class="button-margin button button--cta">ログアウト</ons-button>
         <% end %>
@@ -82,33 +76,9 @@
   </ons-page>
 </template>
 
-<template id="pullHook.html">
-  <ons-page>
-    <ons-toolbar>
-      <div class="left">
-        <ons-back-button>Home</ons-back-button>
-      </div>
-      <div class="center">UserList</div>
-    </ons-toolbar>
-
-    <ons-pull-hook id="pull-hook" threshold-height="120px">
-      <ons-icon id="pull-hook-icon" size="22px" class="pull-hook-content" icon="fa-arrow-down"></ons-icon>
-    </ons-pull-hook>
-
-    <ons-list id="kitten-list">
-      <ons-list-header>UserList</ons-list-header>
-      <% @users.each do |u| %>
-        <ons-list-item>
-          <div class="left">
-            <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
-          </div>
-          <div class="center"><%= u.email %></div>
-        </ons-list-item>
-      <% end %>
-    </ons-list>
-  </ons-page>
-</template>
-
+<%= render partial:'shared/account_page' %>
+<%= render partial:'shared/user_list' %>
+<%= render partial:'shared/fetch_transaction' %>
 
 <script type="text/javascript">
   function update(){

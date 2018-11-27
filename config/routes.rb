@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 		    	collection  do
 		        	get 'tokenid/:id' => 'users#tokenid', as:'tokenid'
 		        	get 'chatwork_me/:id' => 'users#chatwork_me', as:'chatwork_me'
+		        	get 'send_massege/:address' => 'users#send_massege', as:'send_massege'
 		    	end
 	    	end
 		end

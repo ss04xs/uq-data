@@ -1,0 +1,118 @@
+<template id="fetch_transaction.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>Home</ons-back-button>
+      </div>
+      <div class="center">TransactionList</div>
+    </ons-toolbar>
+
+    <ons-pull-hook id="pull-hook" threshold-height="120px">
+      <ons-icon id="pull-hook-icon" size="22px" class="pull-hook-content" icon="fa-arrow-down"></ons-icon>
+    </ons-pull-hook>
+
+    <ons-list id="kitten-list" class="transfers">
+      <ons-list-header>入出金履歴</ons-list-header>
+        <div id="transfers"></div>
+    </ons-list>
+    <script>
+        var master_address = "NB6ADFCKPLSHP2WGPNDT3PLLSTXEA3YYAGMSQBPB"
+        var LAST_ID;
+        var ACCOUNT_TRANSFERS  = "https://aqualife2.supernode.me:7891/account/transfers/all?address="+master_address;
+        $.ajax({url: ACCOUNT_TRANSFERS,type: 'GET'}).done(function(res){parse_transfers(res)});
+
+        $('#transfers_more').click(function(){
+            $.ajax({url: ACCOUNT_TRANSFERS + "&id=" + LAST_ID,type: 'GET'}).done(function(res){parse_transfers(res)});
+            //console.log(tran.amount);
+        })
+
+        var parse_transfers = function(result){
+
+            var dataArray = result.data;
+            console.log(dataArray);
+            // console.log(dataArray);
+            dataArray.forEach(function(val){
+                console.log(val.transaction);
+                if (val.transaction.mosaics !== undefined ) {
+                    if (val.transaction.message.payload !== undefined) {
+                        var tran = val.transaction
+                        var adress = tran.recipient
+                        var mosaic_amount = val.transaction.mosaics[0].quantity / 1000
+                        if(master_address != adress) {
+                            $( "#transfers" ).append( "<ons-list-item>" + 
+                                "<p class='address'>" + "宛先：" + adress + "</p>" +
+                                "<p>" + "UQコイン出金：" + mosaic_amount + "</p>" +
+                                "<p class='massage'>" +utf8_hex_string_to_string(tran.message.payload) + "</p>" + 
+                                "</ons-list-item>" );
+                            console.log(tran.amount);
+                        } else if(address == adress){
+                            $( "#transfers" ).append( "<ons-list-item>" + 
+                                "<p>" + "送信元：" + adress + "</p>" +
+                                "<p>" + "UQコイン入金：" + tran.amount + "</p>" + 
+                                "<p class='massage'>" + utf8_hex_string_to_string(tran.message.payload) + "</p>" + 
+                                "</ons-list-item>" );
+                            console.log(tran.amount);
+                        }
+                    }
+                }
+            });
+        }
+        function utf8_hex_string_to_string (hex_str1) {
+            var bytes2 = hex_string_to_bytes(hex_str1);
+            var str2 = utf8_bytes_to_string(bytes2);
+            return str2;
+        }
+        function hex_to_byte (hex_str){
+            return parseInt(hex_str, 16);
+        }
+        // バイト配列を16進文字列に変換
+        function hex_string_to_bytes (hex_str) {
+            var result = [];
+
+            for (var i = 0; i < hex_str.length; i+=2) {
+                result.push(hex_to_byte(hex_str.substr(i,2)));
+            }
+            return result;
+        }
+        function utf8_bytes_to_string (arr) {
+            if (arr == null)
+                return null;
+            var result = "";
+            var i;
+            while (i = arr.shift()) {
+                if (i <= 0x7f) {
+                    result += String.fromCharCode(i);
+                } else if (i <= 0xdf) {
+                    var c = ((i&0x1f)<<6);
+                    c += arr.shift()&0x3f;
+                    result += String.fromCharCode(c);
+                } else if (i <= 0xe0) {
+                    var c = ((arr.shift()&0x1f)<<6)|0x0800;
+                    c += arr.shift()&0x3f;
+                    result += String.fromCharCode(c);
+                } else {
+                    var c = ((i&0x0f)<<12);
+                    c += (arr.shift()&0x3f)<<6;
+                    c += arr.shift() & 0x3f;
+                    result += String.fromCharCode(c);
+                }
+            }
+            return result;
+        }
+    </script>
+    <style type="text/css">
+        .list-item__center {
+            display: inline-block;
+            width: 100%;
+        }
+        .list-item__center .massage {
+            color: #999;
+        }
+        .list-item__center .address {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+    </ons-page>
+</template>

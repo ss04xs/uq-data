@@ -1,0 +1,51 @@
+<template id="account.html">
+  <ons-page id="tabbar-page">
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>Home</ons-back-button>
+      </div>
+      <div class="center">TransactionList</div>
+    </ons-toolbar>
+
+    <ons-pull-hook id="pull-hook" threshold-height="120px">
+      <ons-icon id="pull-hook-icon" size="22px" class="pull-hook-content" icon="fa-arrow-down"></ons-icon>
+    </ons-pull-hook>
+    <ons-list>
+      <ons-list-header>アカウント情報</ons-list-header>
+      <ons-list-item class="input-items">
+        <div class="left">
+          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+        </div>
+        <%= current_user.username %>
+      </ons-list-item>
+      <ons-list-header>E-mail</ons-list-header>
+      <ons-list-item class="input-items">
+        <div class="left">
+          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+        </div>
+        <%= current_user.email %>
+      </ons-list-item>
+      <ons-list-header>Xem-Address</ons-list-header>
+      <ons-list-item class="input-items">
+        <div class="left">
+          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+        </div>
+        <%= current_user.address %>
+      </ons-list-item>
+      <ons-list-header>Chatwork_Token</ons-list-header>
+      <ons-list-item class="input-items">
+        <div class="left">
+          <ons-icon icon="fa-cog" class="list-item__icon"></ons-icon>
+        </div>
+        <%= current_user.chatwork_token%>
+      </ons-list-item>
+      <ons-list-header>Chatwork_Room_Id</ons-list-header>
+      <ons-list-item class="input-items">
+        <div class="left">
+          <ons-icon icon="fa-cog" class="list-item__icon"></ons-icon>
+        </div>
+        <%= current_user.room_id%>
+      </ons-list-item>
+    </ons-list>
+  </ons-page>
+</template>
