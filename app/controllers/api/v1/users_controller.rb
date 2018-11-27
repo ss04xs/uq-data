@@ -12,12 +12,14 @@ class Api::V1::UsersController < ApplicationController
     require 'net/https'
 	require 'json'
   	me = params[:message]
+  	amount = params[:amount]
+  	me_format = "[info][title]有給申請[/title]日時: x月x日 何日何時間\n送金:#{amount} soda　送金日時:x月x日x時[/info] #{me}"
   	logger.debug params[:address]
   	uri = URI.parse("https://api.chatwork.com/v2/rooms/#{user.room_id}/messages")
 	request = Net::HTTP::Post.new(uri)
 	request["X-Chatworktoken"] = user.chatwork_token
 	request.set_form_data(
-	  "body" => me,
+	  "body" => me_format,
 	  "self_unread" => "0",
 	)
 
