@@ -21,7 +21,7 @@ class Api::V1::UsersController < ApplicationController
     uq_day = uq_x.to_s.split(".")[0]+"日"
     uq_hours = (uq_fract_m * 800 / 100.to_f).to_s.split(".")[0]+"時間"
     uq_minutes = (uq_fract_m3.to_f/100 * 60).to_s.split(".")[0]+"分"
-  	me_format = "[info][title]有給申請[/title]日時: x月x日 #{uq_day}#{uq_hours}#{uq_minutes}\n送金:#{amount} soda　送金日時:x月x日x時[/info] #{me}"
+  	me_format = "[info][title]有給申請[/title]日時: x月x日 #{uq_day if uq_day == 0}#{uq_hours if uq_hours == 0}#{uq_minutes if uq_minutes == 0}\n送金:#{amount} soda　送金日時:x月x日x時[/info] #{me}"
   	logger.debug params[:address]
   	uri = URI.parse("https://api.chatwork.com/v2/rooms/#{user.room_id}/messages")
 	request = Net::HTTP::Post.new(uri)
