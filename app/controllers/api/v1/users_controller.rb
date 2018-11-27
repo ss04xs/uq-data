@@ -14,7 +14,7 @@ class Api::V1::UsersController < ApplicationController
   	me = params[:message]
   	amount = params[:amount]
   	#有給時間の計算
-    uq_x = amount / 800.to_f
+    uq_x = amount.to_i / 800.to_f
     uq_fract_m = uq_x * 10 % 10 /10
     uq_fract_m2 = (uq_fract_m * 800 / 100.to_f) * 10 % 10 /10.to_f
     uq_fract_m3 = (uq_fract_m2 * 100).to_s.split(".")[0]
