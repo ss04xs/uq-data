@@ -13,6 +13,7 @@ class Api::V1::UsersController < ApplicationController
 	require 'json'
   	me = params[:message]
   	amount = params[:amount]
+  	date = params[:date]
   	#有給時間の計算
     uq_x = amount.to_i / 800.to_f
     uq_fract_m = uq_x * 10 % 10 /10
@@ -21,7 +22,7 @@ class Api::V1::UsersController < ApplicationController
     uq_day = uq_x.to_s.split(".")[0]+"日"
     uq_hours = (uq_fract_m * 800 / 100.to_f).to_s.split(".")[0]+"時間"
     uq_minutes = (uq_fract_m3.to_f/100 * 60).to_s.split(".")[0]+"分"
-  	me_format = "[info][title]有給申請[/title]日時: x月x日  #{uq_day unless uq_day == "0日"}#{uq_hours unless uq_hours == "0時間"}#{uq_minutes unless uq_minutes == "0分"}間\n送金:#{amount} soda　送金日時:x月x日x時[/info] #{me}"
+  	me_format = "[info][title]有給申請[/title]日時: #{date}  #{uq_day unless uq_day == "0日"}#{uq_hours unless uq_hours == "0時間"}#{uq_minutes unless uq_minutes == "0分"}間\n送金:#{amount} soda　送金日時:x月x日x時[/info] #{me}"
   	logger.debug params[:address]
   	uri = URI.parse("https://api.chatwork.com/v2/rooms/#{user.room_id}/messages")
 	request = Net::HTTP::Post.new(uri)
