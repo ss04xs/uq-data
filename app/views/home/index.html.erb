@@ -27,6 +27,14 @@
     </p>
 
     <% unless current_user %>
+      <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': 'PullHook'})">
+        <div class="title">社員リスト</div>
+        <div class="content">サイトに登録されているユーザー一覧</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'fetch_transaction.html', 'title': 'Transactions'})">
+        <div class="title">有給申請履歴</div>
+        <div class="content">トランザクションリスト</div>
+      </ons-card>
       <ons-card style="text-align: center;">
         <%= link_to user_google_omniauth_authorize_path do %>
         <ons-button modifier="cta" class="button-margin button button--cta">Googleアカウントでログイン</ons-button>
