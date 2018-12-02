@@ -1,10 +1,11 @@
+<% if current_user.present? %>
 <template id="account.html">
   <ons-page id="tabbar-page">
     <ons-toolbar>
       <div class="left">
         <ons-back-button>Home</ons-back-button>
       </div>
-      <div class="center">TransactionList</div>
+      <div class="center">アカウント管理</div>
     </ons-toolbar>
 
     <ons-pull-hook id="pull-hook" threshold-height="120px">
@@ -46,6 +47,11 @@
         </div>
         <%= current_user.room_id%>
       </ons-list-item>
+      <ons-list-header>ChatWork接続テスト</ons-list-header>
+      <ons-list-item class="input-items">
+        <%= link_to 'テスト', chatwork_me_api_v1_users_path(:id => current_user.id, :me => 'hello test'), :target => "_brank" %>
+      </ons-list-item>
     </ons-list>
   </ons-page>
 </template>
+<% end %>

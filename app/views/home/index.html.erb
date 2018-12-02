@@ -9,7 +9,7 @@
 <template id="tabbar.html">
   <ons-page id="tabbar-page">
     <ons-toolbar>
-      <div class="center">Home</div>
+      <div class="center">UQ Walletユーザー管理</div>
     </ons-toolbar>
     <ons-tabbar swipeable id="appTabbar" position="auto">
       <ons-tab label="Home" icon="ion-home" page="home.html" active></ons-tab>
@@ -23,7 +23,7 @@
 <template id="home.html">
   <ons-page>
     <p class="intro">
-      UQ-Walletユーザー管理<br><br>
+      HOME<br><br>
     </p>
 
     <% unless current_user %>
@@ -37,21 +37,17 @@
         <div class="title">アカウント</div>
         <div class="content">アカウント情報を確認できます。</div>
       </ons-card>
-      <ons-card>
-        <div class="title">ChatWork接続テスト</div>
-        <%= link_to 'テスト', chatwork_me_api_v1_users_path(:id => current_user.id, :me => 'hello test'), :target => "_brank" %>
-      </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': 'PullHook'})">
-        <div class="title">UserList</div>
+        <div class="title">社員リスト</div>
         <div class="content">サイトに登録されているユーザー一覧</div>
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'fetch_transaction.html', 'title': 'Transactions'})">
-        <div class="title">トランザクション履歴</div>
+        <div class="title">有給申請履歴</div>
         <div class="content">トランザクションリスト</div>
       </ons-card>
       <div style="width: 100%;margin-top: 30px;text-align: center;">
         <%= link_to sign_out_path do %>
-        <ons-button modifier="cta" class="button-margin button button--cta">ログアウト</ons-button>
+          <ons-button modifier="cta" class="button-margin button button--cta">ログアウト</ons-button>
         <% end %>
       </div>
     <% end %>
