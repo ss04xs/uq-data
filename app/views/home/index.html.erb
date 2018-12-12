@@ -22,10 +22,6 @@
 
 <template id="home.html">
   <ons-page>
-    <p class="intro">
-      HOME<br><br>
-    </p>
-
     <% unless current_user %>
       <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': 'PullHook'})">
         <div class="title">社員リスト</div>
@@ -43,15 +39,19 @@
 	  <% else %>
       <ons-card onclick="fn.pushPage({'id': 'account.html', 'title': 'Account'})">
         <div class="title">アカウント</div>
-        <div class="content">アカウント情報を確認できます。</div>
+        <div class="content">アカウント情報を確認</div>
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'pullHook.html', 'title': 'PullHook'})">
         <div class="title">社員リスト</div>
-        <div class="content">サイトに登録されているユーザー一覧</div>
+        <div class="content">登録されている社員のリスト</div>
       </ons-card>
       <ons-card onclick="fn.pushPage({'id': 'fetch_transaction.html', 'title': 'Transactions'})">
-        <div class="title">有給申請履歴</div>
-        <div class="content">トランザクションリスト</div>
+        <div class="title">自分の有給申請履歴</div>
+        <div class="content">自分のUQコインのトランザクション履歴</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'fetch_transaction.html', 'title': 'Transactions'})">
+        <div class="title">全社員の有給申請履歴</div>
+        <div class="content">全社員のUQコインのトランザクション履歴</div>
       </ons-card>
       <div style="width: 100%;margin-top: 30px;text-align: center;">
         <%= link_to sign_out_path do %>
