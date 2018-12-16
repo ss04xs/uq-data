@@ -45,7 +45,7 @@
         <div class="title">社員リスト</div>
         <div class="content">登録されている社員のリスト</div>
       </ons-card>
-      <ons-card onclick="fn.pushPage({'id': 'fetch_transaction.html', 'title': 'Transactions'})">
+      <ons-card onclick="fn.pushPage({'id': 'my_fetch_transaction.html', 'title': 'Transactions'})">
         <div class="title">自分の有給申請履歴</div>
         <div class="content">自分のUQコインのトランザクション履歴</div>
       </ons-card>
@@ -83,6 +83,7 @@
 <%= render partial:'shared/account_page' %>
 <%= render partial:'shared/user_list' %>
 <%= render partial:'shared/fetch_transaction' %>
+<%= render partial:'shared/my_fetch_transaction' %>
 
 <script type="text/javascript">
   function update(){
