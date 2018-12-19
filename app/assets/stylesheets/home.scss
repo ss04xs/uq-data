@@ -61,10 +61,33 @@ body {
   float: right;
 }
 
+.toolbar {
+  background: rgb(79, 121, 202) !important;
+}
+
+.toolbar__title {
+  color: rgb(255, 255, 255) !important;
+  font-weight: bold !important;
+}
+
+.back-button__icon {
+  fill: rgb(255, 255, 255) !important;
+}
+
+.back-button {
+  color: rgb(255, 255, 255) !important;
+  font-weight: bold !important;
+}
+
 .card {
   box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12) !important;
   border-radius: 4px !important;
   margin: 20px 10px !important;;
+}
+
+.card__title, .card--material__title {
+  color: #4f79ca !important;
+  font-weight: bold !important;
 }
 
 #kitten-list {
@@ -114,4 +137,5 @@ body {
 
 .uq_request .uq_amount {
   float: right;
+  color: #187f38;
 }
